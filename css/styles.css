@@ -16,6 +16,7 @@ body {
     margin: 0;
     font-family: 'Merriweather', serif;
     color: #fff;
+    overflow: hidden;
 }
 
 
@@ -46,6 +47,15 @@ p {
 }
 
 /* ---- Layout Rules ---- */
+.container {
+  width: 100%;
+  height: 100%;
+  /* CSS Smooth Scroll */
+  overflow-y: scroll; 
+  scroll-behavior: smooth;
+  scroll-snap-type: y mandatory;
+}
+
 main {
     margin: 10vh 1em 10vh;
 }
@@ -58,6 +68,7 @@ main {
 section {
     position: relative;
     min-height: 80vh;
+    scroll-snap-align: center;
 }
 
 
