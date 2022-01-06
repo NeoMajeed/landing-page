@@ -25,6 +25,7 @@
 const sections = document.querySelectorAll('section');
 const navigation = document.getElementById('navbar__list');
 
+
 /**
  * End Global Variables
  * Start Helper Functions
@@ -46,14 +47,37 @@ function navBuilder(){
         const sectionID = section.id;
         const sectionDatanav = section.dataset.nav;
 
-        navUI += `<li><a class="menu__link" href="#${sectionID}">${sectionDatanav}</a></li>`;
+        navUI += `<li><a class="menu__link ${sectionID}" href="#${sectionID}">${sectionDatanav}</a></li>`;
     });
     navigation.innerHTML = navUI ;
 }
 navBuilder();
 
 // Add class 'active' to section when near top of viewport
+const menuLink = document.querySelectorAll('.menu__link')
 
+function addActiveClass(){
+    sections.forEach(section => {
+        const sectionID = section.id;
+        console.log(sectionID)
+        //console.log(section.getBoundingClientRect().y)
+        if(section.getBoundingClientRect().y <= 250 && section.getBoundingClientRect().bottom >= 250 ){
+            section.classList.add("active-class")
+            menuLink.forEach(link => {
+                console.log()
+                if(link.classList.contains(`${sectionID.toString()}`)){
+                    link.classList.add('activeLink')
+                }
+                else{
+                    link.classList.remove('activeLink')
+                }
+            })
+        }
+        else{
+            section.classList.remove("active-class")
+        }            
+    })
+}
 
 // Scroll to anchor ID using scrollTO event
 
@@ -67,7 +91,9 @@ navBuilder();
 // Build menu 
 
 // Scroll to section on link click
-
+document.addEventListener("scroll", function() {
+    addActiveClass()
+});
 // Set sections as active
 
 
