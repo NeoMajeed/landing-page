@@ -67,7 +67,7 @@ section {
 /* Navigation Styles*/
 .navbar__menu ul {
     padding-left: 0;
-    margin: 0;
+    margin: 3px;
     text-align: right;
 }
 
@@ -80,29 +80,35 @@ section {
     padding: 1em;
     font-weight: bold;
     text-decoration: none;
-    color: #000;
+    color: #eee;
+    cursor: pointer;
 }
 
 .navbar__menu .menu__link:hover {
-    background: #333;
+    background: rgba(255, 255, 255, 0.089);
     color: #fff;
     transition: ease 0.3s all;
 }
 
 .activeLink{
-    background: #333;
-    color: #fff !important;
+    background: rgb(211, 211, 211) !important;
+    color: #333 !important;
     transition: ease 0.3s all;
 }
+
 /* Header Styles */
 .page__header {
-    background: #fff;
+    background: #333;
     position: fixed;
     top: 0;
     width: 100%;
     z-index: 5;
+    transition: 0.2s ease-out;
 }
 
+.logo{
+    display: inline;
+}
 /* Footer Styles */
 .page__footer {
     background: #000;

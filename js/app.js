@@ -22,8 +22,9 @@
  * Define Global Variables
  * 
 */
-const sections = document.querySelectorAll('section');
-const navigation = document.getElementById('navbar__list');
+var sections = document.querySelectorAll('section');
+var navigation = document.getElementById('navbar__list');
+const windowSize = document.documentElement.clientWidth;
 
 
 /**
@@ -40,6 +41,12 @@ const navigation = document.getElementById('navbar__list');
  * 
 */
 
+function mobileUi(){
+    if(windowSize < 700){
+        
+    }
+}
+
 // build the nav
 function navBuilder(){
     let navUI = ``;
@@ -47,7 +54,7 @@ function navBuilder(){
         const sectionID = section.id;
         const sectionDatanav = section.dataset.nav;
 
-        navUI += `<li><a class="menu__link ${sectionID}" href="#${sectionID}">${sectionDatanav}</a></li>`;
+        navUI += `<li><a data-link="${sectionID}" class="menu__link ${sectionID}">${sectionDatanav}</a></li>`;
     });
     navigation.innerHTML = navUI ;
 }
@@ -91,9 +98,26 @@ function addActiveClass(){
 // Build menu 
 
 // Scroll to section on link click
+menuLink.forEach(link =>{
+    link.addEventListener("click", () =>{
+        const item = document.getElementById(link.getAttribute("data-link"))
+        console.log(item)
+        item.scrollIntoView({behavior:"smooth", block:"start"});
+    })
+})
+
+// Set sections as active
+let noScroll = ''
 document.addEventListener("scroll", function() {
     addActiveClass()
-});
-// Set sections as active
 
+    const menu = document.querySelector('header');
+    menu.style.top = '0'
+    // clearTimeout(noScroll)
+
+    // noScroll = setTimeout(() =>{       
+    //     menu.style.top = '-104px'
+    //     console.log(menu)
+    // },1000)
+});
 
