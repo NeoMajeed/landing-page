@@ -23,9 +23,9 @@
  * 
 */
 var sections = document.querySelectorAll('section');
-var navigation = document.getElementById('navbar__list');
+var navigation = document.getElementsByClassName('navbar__list')[0];
 const windowSize = document.documentElement.clientWidth;
-
+let menuLink;
 
 /**
  * End Global Variables
@@ -41,11 +41,7 @@ const windowSize = document.documentElement.clientWidth;
  * 
 */
 
-function mobileUi(){
-    if(windowSize < 700){
-        
-    }
-}
+
 
 // build the nav
 function navBuilder(){
@@ -56,23 +52,22 @@ function navBuilder(){
 
         navUI += `<li><a data-link="${sectionID}" class="menu__link ${sectionID}">${sectionDatanav}</a></li>`;
     });
-    navigation.innerHTML = navUI ;
+    navigation.innerHTML = navUI ;    
+    menuLink = document.querySelectorAll('.menu__link')
+
 }
-navBuilder();
 
 // Add class 'active' to section when near top of viewport
-const menuLink = document.querySelectorAll('.menu__link')
 
 function addActiveClass(){
     sections.forEach(section => {
         const sectionID = section.id;
         console.log(sectionID)
-        //console.log(section.getBoundingClientRect().y)
         if(section.getBoundingClientRect().y <= 250 && section.getBoundingClientRect().bottom >= 250 ){
             section.classList.add("active-class")
             menuLink.forEach(link => {
                 console.log()
-                if(link.classList.contains(`${sectionID.toString()}`)){
+                if(link.classList.contains(`${sectionID}`)){
                     link.classList.add('activeLink')
                 }
                 else{
@@ -86,6 +81,17 @@ function addActiveClass(){
     })
 }
 
+function myFunction() {
+    if(windowSize < 600){
+        if (navigation.className === "navbar__list") {
+      navigation.className += " checked";
+    }   else {
+      navigation.className = "navbar__list";
+    }
+    }
+  
+}
+
 // Scroll to anchor ID using scrollTO event
 
 
@@ -96,28 +102,29 @@ function addActiveClass(){
 */
 
 // Build menu 
+document.addEventListener("load", navBuilder());
 
 // Scroll to section on link click
 menuLink.forEach(link =>{
     link.addEventListener("click", () =>{
         const item = document.getElementById(link.getAttribute("data-link"))
-        console.log(item)
         item.scrollIntoView({behavior:"smooth", block:"start"});
+        myFunction();
     })
 })
 
 // Set sections as active
-let noScroll = ''
+let noScroll;
 document.addEventListener("scroll", function() {
     addActiveClass()
-
+    console.log()
     const menu = document.querySelector('header');
     menu.style.top = '0'
-    // clearTimeout(noScroll)
+    clearTimeout(noScroll)
 
-    // noScroll = setTimeout(() =>{       
-    //     menu.style.top = '-104px'
-    //     console.log(menu)
-    // },1000)
+    noScroll = setTimeout(() =>{       
+        menu.style.top = '-104px'
+        navigation.classList.remove('checked')
+    },1000)
 });
 

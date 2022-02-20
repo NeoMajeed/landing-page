@@ -33,6 +33,41 @@ h1 {
     }
 }
 
+.logo{
+    z-index: 1;
+}
+
+.icon {
+    color: whitesmoke;
+    padding-right: 10px;
+    display: none;
+}
+
+@media screen and (max-width: 600px) {
+     .icon {
+        float: right;
+        display: block;
+        z-index: 1;
+    }
+
+      .navbar__list {
+        width: 100%;
+        height: 22vh;
+        position: fixed;
+        top: -220px;
+        left: -3px;
+        z-index: 0;
+        background-color: #333;
+        display: flex;
+        flex-direction: column;
+        transition: 0.4s ease;
+      }
+    }
+
+.checked{
+      top: 57px;
+      }
+
 h2 {
     border-bottom: 1px solid #cc1;
     font-family: 'Oxygen', Sans-Serif;
@@ -65,10 +100,17 @@ section {
 /* ---- Module Rules ---- */
 
 /* Navigation Styles*/
+.navbar__menu{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
 .navbar__menu ul {
     padding-left: 0;
     margin: 3px;
     text-align: right;
+    
 }
 
 .navbar__menu li {
@@ -106,8 +148,10 @@ section {
     transition: 0.2s ease-out;
 }
 
-.logo{
-    display: inline;
+.logo img{
+    width: 130px;
+    height: 60px;
+    object-fit: cover;
 }
 /* Footer Styles */
 .page__footer {

@@ -7,6 +7,7 @@
   <title>Portfolio</title>
   <!-- Load Google Fonts -->
   <link href="https://fonts.googleapis.com/css?family=Fira+Sans:900|Merriweather&display=swap" rel="stylesheet">  <!-- Load Styles -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link href="css/styles.css" rel="stylesheet">
 </head>
 <body>
@@ -14,9 +15,12 @@
   IDs are only used for sections to connect menu achors to sections -->
   <header class="page__header">
     <nav class="navbar__menu">
-      <div class="logo"><img src="/logo.png" alt=""></div>
+      <a href="" class="logo"><img src="/logo.png" alt=""></a>
       <!-- Navigation starts as empty UL that will be populated with JS -->
-      <ul id="navbar__list"></ul>
+      <ul class="navbar__list"></ul>
+      <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+        <i class="fa fa-bars fa-2x"></i>
+      </a>
     </nav>
   </header>
   <main>
