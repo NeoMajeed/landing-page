@@ -1,6 +1,6 @@
 # Landing Page Project
 <!-- Add banner here -->
-Hi this is the second Project from Udacity nanodegree Front End Web Developerز
+Hi this is the second Project from Udacity nanodegree Front End Web Developer.
 
 ## Features
     * Generate navbar on load.
