@@ -1,31 +1,12 @@
-/**
- * 
- * Manipulating the DOM exercise.
- * Exercise programmatically builds navigation,
- * scrolls to anchors from navigation,
- * and highlights section in viewport upon scrolling.
- * 
- * Dependencies: None
- * 
- * JS Version: ES2015/ES6
- * 
- * JS Standard: ESlint
- * 
-*/
-
-/**
- * Comments should be present at the beginning of each procedure and class.
- * Great to have comments before crucial code sections within the procedure.
-*/
 
 /**
  * Define Global Variables
  * 
 */
-var sections = document.querySelectorAll('section');
-var navigation = document.getElementsByClassName('navbar__list')[0];
-const windowSize = document.documentElement.clientWidth;
-let menuLink;
+const sections = document.querySelectorAll('section');
+const navigation = document.getElementsByClassName('navbar__list')[0];
+const icon = document.querySelector('.icon');
+const btnGoUp = document.querySelector('.goup');
 
 /**
  * End Global Variables
@@ -33,7 +14,28 @@ let menuLink;
  * 
 */
 
+/* If user use phone it will shows navItems*/
+let ishamburgerChecked = false;
+function hamburger() {
+    const windowSize = document.documentElement.clientWidth;
+    if(windowSize < 600){
+        if (navigation.className === "navbar__list") {
+      navigation.className += " checked";
+      ishamburgerChecked = true;
+    } else {
+      navigation.className = "navbar__list";
+      ishamburgerChecked = false;
+        }
+    }    
+}
 
+// Scroll to Top using scrollTO event
+function goUp(){
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+}
 
 /**
  * End Helper Functions
@@ -44,6 +46,7 @@ let menuLink;
 
 
 // build the nav
+let menuLink = [];
 function navBuilder(){
     let navUI = ``;
     sections.forEach(section => {
@@ -52,7 +55,7 @@ function navBuilder(){
 
         navUI += `<li><a data-link="${sectionID}" class="menu__link ${sectionID}">${sectionDatanav}</a></li>`;
     });
-    navigation.innerHTML = navUI ;    
+    navigation.innerHTML = navUI ;
     menuLink = document.querySelectorAll('.menu__link')
 
 }
@@ -62,9 +65,10 @@ function navBuilder(){
 function addActiveClass(){
     sections.forEach(section => {
         const sectionID = section.id;
-        console.log(sectionID)
         if(section.getBoundingClientRect().y <= 250 && section.getBoundingClientRect().bottom >= 250 ){
-            section.classList.add("active-class")
+            section.classList.add("active-class");
+
+            // Add class 'activeLink' to your navigation items when a section is in the viewport  
             menuLink.forEach(link => {
                 console.log()
                 if(link.classList.contains(`${sectionID}`)){
@@ -81,19 +85,15 @@ function addActiveClass(){
     })
 }
 
-function myFunction() {
-    if(windowSize < 600){
-        if (navigation.className === "navbar__list") {
-      navigation.className += " checked";
-    }   else {
-      navigation.className = "navbar__list";
+/* If user scrolled under 1.5/of page it will shows button To UP*/
+function ScrolledDown(){
+    if(window.pageYOffset > (window.innerHeight / 1.5)){
+        btnGoUp.style.display = "block";
     }
+    else{
+        btnGoUp.style.display = "none";
     }
-  
 }
-
-// Scroll to anchor ID using scrollTO event
-
 
 /**
  * End Main Functions
@@ -109,22 +109,43 @@ menuLink.forEach(link =>{
     link.addEventListener("click", () =>{
         const item = document.getElementById(link.getAttribute("data-link"))
         item.scrollIntoView({behavior:"smooth", block:"start"});
-        myFunction();
+        hamburger();
+        
     })
 })
 
 // Set sections as active
 let noScroll;
-document.addEventListener("scroll", function() {
-    addActiveClass()
-    console.log()
+document.addEventListener("scroll", ()=>{
+    ScrolledDown();
+    addActiveClass();
+    if(window.pageYOffset > 175){
     const menu = document.querySelector('header');
     menu.style.top = '0'
     clearTimeout(noScroll)
-
-    noScroll = setTimeout(() =>{       
-        menu.style.top = '-104px'
-        navigation.classList.remove('checked')
-    },1000)
+    
+    noScroll = setTimeout(()=>{   
+            if(ishamburgerChecked){
+                return;
+            }    
+            menu.style.top = '-104px'
+            navigation.classList.remove('checked')
+        },1000)    
+    }
+    else{
+        clearTimeout(noScroll);
+    }
+    
 });
+
+/* show navItems when click hamburger icon on phones*/
+icon.addEventListener('click', ()=>{
+    hamburger();
+});
+
+/* scroll To top event */
+btnGoUp.addEventListener("click", ()=>{
+    goUp();
+});
+
 
