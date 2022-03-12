@@ -7,7 +7,11 @@ const sections = document.querySelectorAll('section');
 const navigation = document.getElementsByClassName('navbar__list')[0];
 const icon = document.querySelector('.icon');
 const btnGoUp = document.querySelector('.goup');
-
+const menu = document.querySelector('header');
+let menuLink = [];
+let noScrolling;
+let ishamburgerChecked = false;
+    
 /**
  * End Global Variables
  * Start Helper Functions
@@ -15,7 +19,6 @@ const btnGoUp = document.querySelector('.goup');
 */
 
 /* If user use phone it will shows navItems*/
-let ishamburgerChecked = false;
 function hamburger() {
     const windowSize = document.documentElement.clientWidth;
     if(windowSize < 600){
@@ -46,7 +49,6 @@ function goUp(){
 
 
 // build the nav
-let menuLink = [];
 function navBuilder(){
     let navUI = ``;
     sections.forEach(section => {
@@ -61,7 +63,6 @@ function navBuilder(){
 }
 
 // Add class 'active' to section when near top of viewport
-
 function addActiveClass(){
     sections.forEach(section => {
         const sectionID = section.id;
@@ -115,16 +116,15 @@ menuLink.forEach(link =>{
 })
 
 // Set sections as active
-let noScroll;
 document.addEventListener("scroll", ()=>{
     ScrolledDown();
     addActiveClass();
+
     if(window.pageYOffset > 175){
-    const menu = document.querySelector('header');
     menu.style.top = '0'
-    clearTimeout(noScroll)
+    clearTimeout(noScrolling)
     
-    noScroll = setTimeout(()=>{   
+    noScrolling = setTimeout(()=>{   
             if(ishamburgerChecked){
                 return;
             }    
@@ -133,7 +133,7 @@ document.addEventListener("scroll", ()=>{
         },1000)    
     }
     else{
-        clearTimeout(noScroll);
+        clearTimeout(noScrolling);
     }
     
 });
