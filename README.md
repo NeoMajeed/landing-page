@@ -9,4 +9,15 @@ Hi this is the second Project from Udacity nanodegree Front End Web Developer.
     * scrollTO event when click To up button.
 
 ## Instructions
-    
+    Use `git clone https://github.com/ubdo15/landing-page.git` 
+
+## Technologies
+    * HTML
+    * CSS
+    * JavaScript
+
+## Author name
+    Abdulmajeed 
+
+
+
